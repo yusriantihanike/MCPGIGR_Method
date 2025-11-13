@@ -12,8 +12,8 @@ This repository contains the full R code and data required to reproduce the resu
   2. Load and process data
   3. Compute descriptive statistics
   4. Compute initial values
-  5. Evaluate log-likelihood and gradients (full and null models)
-  6. Estimate the MCPGIGR model (full and null)
+  5. Evaluate log-likelihood and gradients 
+  6. Estimate the MCPGIGR model 
   7. Report parameter estimates
   8. Perform hypothesis testing
 

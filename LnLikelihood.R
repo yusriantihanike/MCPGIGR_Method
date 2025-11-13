@@ -56,3 +56,56 @@ loglik.MCPGIGRe = function(params,y1,y2,x)
   
   return(sum(loglik))
 }
+loglik.MCPGIGR.inde0 = function(params,y1,y2,x)
+{
+  x       = constant
+  n       = length(y1)
+  m       = length(params)
+  p       = ncol(x)
+  k       = ncol(y)
+  tau     = params[3]
+  psi     = params[4]
+  gamma   = -0.5
+  btX10   = x %*% params[1]
+  btX20   = x %*% params[2]
+  ebtX10   = q1*exp(btX10)
+  ebtX20   = q2*exp(btX20)
+  w       = (sqrt((tau^2)+(psi^2))-psi)
+  h       = w+(2*(ebtX20))
+  #pangkatyj
+  c12 = (y1 + (gamma))/2
+  #Fungsi Bessel pertama 
+  Kw1  = log(besselK(w,gamma))
+  #Fungsi Bessel kedua
+  z    = sqrt(w*(w+2*(ebtX20)))
+  c1   = y1 + gamma
+  #K1   = besselK(z,c1)
+  K1    = (besselK(z,c1))
+  
+  loglik = rep(0,n)
+  
+  for(i in 1:n)
+  {
+    term1 = log((sqrt(psi))/Kw1)
+    term2 = log(((ebtX10[i]/psi)^y1[i])/factorial(y1[i]))
+    term3 = log((((ebtX20[i]-ebtX10[i])/psi)^(y2[i]-y1[i]))/factorial(y2[i]-y1[i]))
+    term4 = log((sqrt((w*(psi^2))/h[i]))^((y2[i]+gamma)/2))
+    term5 = log(K1[i])
+    
+    loglik[i]= term1+term2+term3+term4+term5
+  }
+  return(loglik)
+}
+
+
+
+loglik.MCPGIGR0 = function(params,y1,y2,x)
+{
+  loglik = loglik.MCPGIGR.inde0(params,y1,y2,x)
+  
+  loglik[!is.finite(loglik)] <- NA
+  loglikmin = min(loglik,na.rm=TRUE)
+  loglik    = ifelse(is.na(loglik),loglikmin,loglik)
+  
+  return(sum(loglik))
+}

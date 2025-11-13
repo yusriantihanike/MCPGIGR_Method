@@ -20,12 +20,9 @@ script_files <- c(
   "Input Data.R",
   "Descriptive Data.R",
   "Initial Value.R",
-  "LnLikelihood Full Model.R",
-  "LnLikelihood Null Model.R",
-  "Gradient Full Model.R",
-  "Gradient Null Model.R",
-  "Full Model Estimate.R",
-  "Null Model Estimate.R",
+  "LnLikelihood.R",
+  "Gradient.R",
+  "Model Estimate.R",
   "Parameter Result.R",
   "Hypothesis Testing Result.R"
 )
